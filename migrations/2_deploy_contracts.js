@@ -1,4 +1,4 @@
-let tokenization = artifacts.require('./Tokenization.sol');
+let tokenization = artifacts.require('./AssetTokenization.sol');
 
 module.exports = async function (deployer) {
   let name = "Asset";

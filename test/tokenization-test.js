@@ -1,5 +1,5 @@
-const Tokenization = artifacts.require('Tokenization')
-
+const Tokenization = artifacts.require('AssetTokenization')
+const System = artifacts.require('System')
 const truffleAssert = require('truffle-assertions')
 
 
@@ -7,7 +7,8 @@ const truffleAssert = require('truffle-assertions')
 
 contract('Tokenization', accounts => {
   let tokenization;
-
+  let tokenization2;
+  let system;
   const issuer = accounts[0]
   const user1 = accounts[1]
   const user2 = accounts[2]
@@ -19,12 +20,25 @@ contract('Tokenization', accounts => {
   let symbol = "AST";
   let supply = 100;
   before(async () => {
-    tokenization = await Tokenization.new(name,symbol,supply,issuer,{from: owner})
+    system       = await System.new({from: owner});
+    
+    // tokenization = await Tokenization.new(name,symbol,supply,issuer,{from: owner})
    
     
   })
-
-  it('Tokenization configured', async () => {
+  it('Deploy & issue Tokens from System contract', async () =>{
+    let tx = await system.createToken(name,symbol,supply,issuer,{from: owner});
+    truffleAssert.eventEmitted(tx, 'Tokenization', (ev) => {
+      tokenization2 = ev.contractAddress;
+      return ev.symbol == symbol && ev.owner == issuer && ev.amount == supply;
+    })
+  })
+  it('Fetch Token\'s address from System contract', async () =>{
+    let tx = await system.getTokenContract(symbol);
+    assert.equal(tx.toString(),tokenization2+"");
+  })
+  it('Should Asset\'s Tokenization configured', async () => {
+    tokenization = await Tokenization.at(tokenization2);
     let _name = await tokenization.name({from: issuer});
     let _sybmol = await tokenization.symbol({from: issuer});
     let _supply = await tokenization.totalSupply({from: issuer});
@@ -39,7 +53,7 @@ contract('Tokenization', accounts => {
   let docUri = "http://example.com/pdf"
   let docHash = "hashofdoc"
   
-  let tx = await tokenization.setDocument(web3.utils.fromUtf8(docName),docUri,web3.utils.fromUtf8(docHash),{from: owner});
+  let tx = await system.setDocument(web3.utils.fromUtf8(docName),docUri,web3.utils.fromUtf8(docHash),symbol,{from: owner});
   truffleAssert.eventEmitted(tx, 'Document', (ev) => {
     return ev.uri === docUri;
 });

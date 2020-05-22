@@ -25,7 +25,13 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.6.2"
-    }
+      version: '0.5.10',
+      settings: {
+        optimizer: {
+          enabled: true, // Default: false
+          runs: 0, // Default: 200
+        },
+      },
+    },
   }
 }
