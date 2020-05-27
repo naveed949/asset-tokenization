@@ -13,11 +13,18 @@ mapping( string => address) public tokens;
 
 AssetTokenization public _tokenization;
 
-function createToken(string calldata name, string calldata symbol, uint256 supply, address owner) external onlyOwner returns (bool){
+function tokenize(string calldata name, string calldata symbol, uint256 supply) external onlyOwner returns (bool){
     require(tokens[symbol] == address(0), "Token Symbol already exists");
-     _tokenization = new AssetTokenization(name, symbol, supply, owner );
+     _tokenization = new AssetTokenization(name, symbol, supply );
     tokens[symbol] = address(_tokenization);
-    emit Tokenization(symbol,owner,supply,address(_tokenization));
+    emit Tokenization(name, symbol, supply ,address(_tokenization));
+    return true;
+}
+function issueTokens(string calldata symbol, address owner) external onlyOwner returns (bool) {
+    require(tokens[symbol] != address(0), "Asset isn't tokenized yet");
+    _tokenization = AssetTokenization(tokens[symbol]);
+    _tokenization.issue(owner);
+    emit Issued(symbol, owner, address(_tokenization));
     return true;
 }
 function setDocument(bytes32 name, string calldata uri, bytes32 documentHash, string calldata tokenSymbol) external onlyOwner returns(bool){
@@ -31,6 +38,7 @@ function getTokenContract(string calldata tokenSymbol) external view returns(add
     return tokens[tokenSymbol];
 }
 
-event Tokenization(string symbol, address indexed owner, uint256 indexed amount, address contractAddress);
+event Tokenization(string name, string symbol, uint256 supply, address indexed contractAddress);
 event Document(bytes32 indexed name, string uri, bytes32 documentHash);
+event Issued(string symbol, address indexed owner, address indexed contractAddress);
 }

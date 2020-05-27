@@ -26,20 +26,18 @@ contract AssetTokenization is IERC20, Ownable {
   // Mapping for token URIs.
   mapping(bytes32 => Doc) internal _documents;
 
-    // Mapping from (operator, tokenHolder) to authorized status. [TOKEN-HOLDER-SPECIFIC]
-  mapping(address => mapping(address => bool)) internal _authorizedOperator;
+
 
     constructor(
     string memory name,
     string memory symbol,
-    uint256 totalSupply,
-    address owner
+    uint256 totalSupply
   )
     public
   {
    _name = name;
    _symbol = symbol;
-   _issue(owner,totalSupply);
+   _totalSupply = _totalSupply.add(totalSupply);
   }
     /**
    * @dev Get the name of the token, e.g., "MyToken".
@@ -152,19 +150,16 @@ contract AssetTokenization is IERC20, Ownable {
     /**
    * @dev Perform the issuance of tokens.
    * @param to Token recipient.
-   * @param value Number of tokens issued.
    */
-  function _issue(address to, uint256 value)
-    internal
+  function issue(address to)
+    external onlyOwner
   {
-    require(_isMultiple(value), "transfer failure"); // 0x50	transfer failure
+    require(_isMultiple(_totalSupply), "transfer failure"); // 0x50	transfer failure
     require(to != address(0), "invalid receiver"); // 0x57	invalid receiver
 
-    _totalSupply = _totalSupply.add(value);
-    _balances[to] = _balances[to].add(value);
+    _balances[to] = _balances[to].add(_totalSupply);
 
-  //  emit Issued(operator, to, value, data);
-    emit Transfer(address(0), to, value); // ERC20 retrocompatibility
+    emit Transfer(address(0), to, _totalSupply); // ERC20 retrocompatibility
   }
 
     /**

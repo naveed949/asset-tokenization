@@ -19,25 +19,38 @@ contract('Tokenization', accounts => {
   let name = "Asset";
   let symbol = "AST";
   let supply = 100;
-  before(async () => {
-    system       = await System.new({from: owner});
-    
-    // tokenization = await Tokenization.new(name,symbol,supply,issuer,{from: owner})
-   
+  it('Deploy System contract', async () =>{
+    system   = await System.new({from: owner});
     
   })
-  it('Deploy & issue Tokens from System contract', async () =>{
-    let tx = await system.createToken(name,symbol,supply,issuer,{from: owner});
+  it('Deploy asset-tokenization contract from System contract', async () =>{
+    let tx = await system.tokenize(name,symbol,supply,{from: owner});
     truffleAssert.eventEmitted(tx, 'Tokenization', (ev) => {
       tokenization2 = ev.contractAddress;
-      return ev.symbol == symbol && ev.owner == issuer && ev.amount == supply;
+      return ev.name == name && ev.symbol == symbol && ev.supply == supply;
+    })
+  })
+  it('Issue tokens from System contract', async () =>{
+    let tx = await system.issueTokens(symbol,issuer,{from: owner});
+    truffleAssert.eventEmitted(tx, 'Issued', (ev) => {
+      return ev.symbol == symbol && ev.owner == issuer && ev.contractAddress == tokenization2;
     })
   })
   it('Fetch Token\'s address from System contract', async () =>{
     let tx = await system.getTokenContract(symbol);
     assert.equal(tx.toString(),tokenization2+"");
   })
-  it('Should Asset\'s Tokenization configured', async () => {
+  it('Set Asset\'s Document from System contract', async () => {
+    let docName = "my_document"
+    let docUri = "http://example.com/pdf"
+    let docHash = "hashofdoc"
+    
+    let tx = await system.setDocument(web3.utils.fromUtf8(docName),docUri,web3.utils.fromUtf8(docHash),symbol,{from: owner});
+    truffleAssert.eventEmitted(tx, 'Document', (ev) => {
+      return ev.uri === docUri;
+  });
+  })
+  it('Should Asset\'s Tokenization contract configured', async () => {
     tokenization = await Tokenization.at(tokenization2);
     let _name = await tokenization.name({from: issuer});
     let _sybmol = await tokenization.symbol({from: issuer});
@@ -48,17 +61,8 @@ contract('Tokenization', accounts => {
     assert.equal(_supply.toNumber(),supply)
     assert.equal(_balance.toNumber(),supply)
   })
-  it('Set Document', async () => {
-  let docName = "my_document"
-  let docUri = "http://example.com/pdf"
-  let docHash = "hashofdoc"
-  
-  let tx = await system.setDocument(web3.utils.fromUtf8(docName),docUri,web3.utils.fromUtf8(docHash),symbol,{from: owner});
-  truffleAssert.eventEmitted(tx, 'Document', (ev) => {
-    return ev.uri === docUri;
-});
-})
-it('Fetch Document', async () => {
+
+it('Fetch Document from Asset-tokenization contract', async () => {
   let docName  = "my_document"
   let docUri   = "http://example.com/pdf"
   let docHash = "hashofdoc"
@@ -66,7 +70,7 @@ it('Fetch Document', async () => {
   assert.equal(tx[0],docUri)
   assert.equal(web3.utils.toUtf8(tx[1]),docHash)
 })
-it('transfer token to user1', async () =>{
+it('transfer tokens to user1', async () =>{
   let tx = await tokenization.transfer(user1,2,{from: issuer})
   truffleAssert.eventEmitted(tx, 'Transfer', (ev) => {
     return ev.from === issuer && ev.to == user1 && ev.value == 2 ;

@@ -1,0 +1,454 @@
+{
+  "contractName": "Storage",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totallStudents",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "teacher",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.3+commit.10d17f24\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"totallStudents\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"teacher\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{},\"title\":\"Storage this contract stores the storage structure and inherited by both Proxy and Logic contract i.e: CourseV1\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/malik/STO-tokenization/UpgradeableSmartContract-proxy/contracts/Storage.sol\":\"Storage\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/malik/STO-tokenization/UpgradeableSmartContract-proxy/contracts/Storage.sol\":{\"keccak256\":\"0x18fe3ca11d8befcf29855900be2ddca94aad7a3c37385b3c288555a4f6b27b13\",\"urls\":[\"bzzr://2f0a57dce14ce0b41b096126fd25bc5517bb77bc495639b1f0c7bc43483c95fe\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610192806100206000396000f3fe608060405234801561001057600080fd5b506004361061005e576000357c010000000000000000000000000000000000000000000000000000000090048063790f33cd146100635780638da5cb5b14610081578063b46bff89146100cb575b600080fd5b61006b610115565b6040518082815260200191505060405180910390f35b61008961011b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d3610141565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60045481565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a72305820ea0d338e129a1095a777920a731b4b6a246ce9368d057134623bdc6b88582bd70029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061005e576000357c010000000000000000000000000000000000000000000000000000000090048063790f33cd146100635780638da5cb5b14610081578063b46bff89146100cb575b600080fd5b61006b610115565b6040518082815260200191505060405180910390f35b61008961011b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d3610141565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60045481565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a72305820ea0d338e129a1095a777920a731b4b6a246ce9368d057134623bdc6b88582bd70029",
+  "sourceMap": "156:359:4:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;156:359:4;;;;;;;",
+  "deployedSourceMap": "156:359:4:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;156:359:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;486:26;;;:::i;:::-;;;;;;;;;;;;;;;;;;;271:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;212:22;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;486:26;;;;:::o;271:20::-;;;;;;;;;;;;;:::o;212:22::-;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.3;\n\n/**\n* @title Storage\n* this contract stores the storage structure and inherited by both Proxy and Logic contract i.e: CourseV1\n */\ncontract Storage {\n    // Teacher - teaching Course\n    address public teacher;\n    // Owner of proxy contract\n    address public owner;\n    // Course - smartcontract address\n    address internal course;\n    // mapping (student => marks)\n    mapping (address => uint) internal marks;\n    // totall students enrolled in Course\n    uint public totallStudents;\n}",
+  "sourcePath": "/home/malik/STO-tokenization/UpgradeableSmartContract-proxy/contracts/Storage.sol",
+  "ast": {
+    "absolutePath": "/home/malik/STO-tokenization/UpgradeableSmartContract-proxy/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        330
+      ]
+    },
+    "id": 331,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 317,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Storage\nthis contract stores the storage structure and inherited by both Proxy and Logic contract i.e: CourseV1",
+        "fullyImplemented": true,
+        "id": 330,
+        "linearizedBaseContracts": [
+          330
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 319,
+            "name": "teacher",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "212:22:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 318,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "212:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 321,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "271:20:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 320,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "271:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 323,
+            "name": "course",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "335:23:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 322,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "335:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 327,
+            "name": "marks",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "398:40:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 326,
+              "keyType": {
+                "id": 324,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "407:7:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "398:25:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 325,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "418:4:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 329,
+            "name": "totallStudents",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "486:26:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 328,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "486:4:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 331,
+        "src": "156:359:4"
+      }
+    ],
+    "src": "0:515:4"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/malik/STO-tokenization/UpgradeableSmartContract-proxy/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        330
+      ]
+    },
+    "id": 331,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 317,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Storage\nthis contract stores the storage structure and inherited by both Proxy and Logic contract i.e: CourseV1",
+        "fullyImplemented": true,
+        "id": 330,
+        "linearizedBaseContracts": [
+          330
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 319,
+            "name": "teacher",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "212:22:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 318,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "212:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 321,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "271:20:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 320,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "271:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 323,
+            "name": "course",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "335:23:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 322,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "335:7:4",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 327,
+            "name": "marks",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "398:40:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 326,
+              "keyType": {
+                "id": 324,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "407:7:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "398:25:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 325,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "418:4:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 329,
+            "name": "totallStudents",
+            "nodeType": "VariableDeclaration",
+            "scope": 330,
+            "src": "486:26:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 328,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "486:4:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 331,
+        "src": "156:359:4"
+      }
+    ],
+    "src": "0:515:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.3+commit.10d17f24.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-05-19T07:07:36.466Z",
+  "devdoc": {
+    "methods": {},
+    "title": "Storage this contract stores the storage structure and inherited by both Proxy and Logic contract i.e: CourseV1"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

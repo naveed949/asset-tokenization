@@ -11,7 +11,7 @@ module.exports = {
       provider: function () {
         const mnemonic = readFileSync(path.join(__dirname, 'rinkeby_mnemonic'), 'utf-8')
      
-        return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/a9f521235df94d829754f89f68101a76`, 0, 10)
+        return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/a9f521235df94d829754f89f68101a76`, 0, 1)
       },
       network_id: 4,
       gasPrice: 15000000001,
