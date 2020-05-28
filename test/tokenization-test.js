@@ -97,7 +97,7 @@ it('Fetch allowance of user2 approved by user1', async () => {
   assert.equal(tx.toNumber(),1)
 })
 it('user2 should spend on behalf of user1', async () =>{
-  
+
   let tx = await tokenization.transferFrom(user1,user3,1,{from: user2});
   truffleAssert.eventEmitted(tx,"Transfer", (ev) =>{
     return ev.from == user1 && ev.to == user3 && ev.value == 1;
@@ -105,9 +105,9 @@ it('user2 should spend on behalf of user1', async () =>{
 
 })
 it('user2 should not spend more then he\'s approved by user1', async () =>{
-  
+
   truffleAssert.reverts(
-                       tokenization
+                        tokenization
                        .transferFrom(user1,user3,2,{from: user2})
                        ,"insufficient allowance");
 })

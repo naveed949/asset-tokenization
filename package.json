@@ -11,6 +11,7 @@
     "_deploy": "./node_modules/.bin/truffle deploy --network ",
     "deploy-local": "npm run _deploy local",
     "deploy-rinkeby": "npm run _deploy rinkeby",
+    "deploy-mainnet": "npm run _deploy mainnet",
     "test": "./node_modules/.bin/truffle test"
   },
   "license": "Apache-2",

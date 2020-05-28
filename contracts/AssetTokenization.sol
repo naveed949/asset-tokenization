@@ -139,12 +139,12 @@ contract AssetTokenization is IERC20, Ownable {
    * @param documentHash Hash of the document [optional parameter].
    */
   function setDocument(bytes32 name, string calldata uri, bytes32 documentHash) external onlyOwner {
-   // require(_isController[msg.sender]);
+
     _documents[name] = Doc({
       docURI: uri,
       docHash: documentHash
     });
-   //  emit Document(name, uri, documentHash);
+  
   }
 
     /**
@@ -154,8 +154,8 @@ contract AssetTokenization is IERC20, Ownable {
   function issue(address to)
     external onlyOwner
   {
-    require(_isMultiple(_totalSupply), "transfer failure"); // 0x50	transfer failure
-    require(to != address(0), "invalid receiver"); // 0x57	invalid receiver
+    require(_isMultiple(_totalSupply), "transfer failure"); 
+    require(to != address(0), "invalid receiver"); 
 
     _balances[to] = _balances[to].add(_totalSupply);
 
@@ -173,8 +173,7 @@ contract AssetTokenization is IERC20, Ownable {
       /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.
      *
-     * This is internal function is equivalent to {transfer}, and can be used to
-     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     * This is internal function is equivalent to {transfer}
      *
      * Emits a {Transfer} event.
      *
@@ -188,13 +187,9 @@ contract AssetTokenization is IERC20, Ownable {
         require(sender != address(0), "transfer from the zero address");
         require(recipient != address(0), "transfer to the zero address");
 
-       // _beforeTokenTransfer(sender, recipient, amount);
-
         _balances[sender] = _balances[sender].sub(amount, "transfer amount exceeds balance");
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);
     }
 
-
-//  event Document(bytes32 indexed name, string uri, bytes32 documentHash);
 }
