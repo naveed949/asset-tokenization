@@ -12,6 +12,7 @@
     "deploy-local": "npm run _deploy local",
     "deploy-rinkeby": "npm run _deploy rinkeby",
     "deploy-mainnet": "npm run _deploy mainnet",
+    "deploy-rinkeby-reset": "./node_modules/.bin/truffle deploy --network rinkeby --reset",
     "test": "./node_modules/.bin/truffle test"
   },
   "license": "Apache-2",
