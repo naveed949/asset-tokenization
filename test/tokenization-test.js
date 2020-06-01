@@ -96,6 +96,7 @@ it('Fetch allowance of user2 approved by user1', async () => {
   let tx       = await tokenization.allowance(user1,user2);
   assert.equal(tx.toNumber(),1)
 })
+
 it('user2 should spend on behalf of user1', async () =>{
 
   let tx = await tokenization.transferFrom(user1,user3,1,{from: user2});

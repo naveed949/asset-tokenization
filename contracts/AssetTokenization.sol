@@ -122,25 +122,25 @@ contract AssetTokenization is IERC20, Ownable {
 
     /**
    * @dev Access a document associated with the token.
-   * @param name Short name (represented as a bytes32) associated to the document.
+   * @param name_ Short name (represented as a bytes32) associated to the document.
    * @return Requested document + document hash.
    */
-  function getDocument(bytes32 name) external view returns (string memory, bytes32) {
-    require(bytes(_documents[name].docURI).length != 0, "Document not found"); 
+  function getDocument(bytes32 name_) external view returns (string memory, bytes32) {
+    require(bytes(_documents[name_].docURI).length != 0, "Document not found"); 
     return (
-      _documents[name].docURI,
-      _documents[name].docHash
+      _documents[name_].docURI,
+      _documents[name_].docHash
     );
   }
   /**
    * @dev Associate a document with the token.
-   * @param name Short name (represented as a bytes32) associated to the document.
+   * @param name_ Short name (represented as a bytes32) associated to the document.
    * @param uri Document content.
    * @param documentHash Hash of the document [optional parameter].
    */
-  function setDocument(bytes32 name, string calldata uri, bytes32 documentHash) external onlyOwner {
+  function setDocument(bytes32 name_, string calldata uri, bytes32 documentHash) external onlyOwner {
 
-    _documents[name] = Doc({
+    _documents[name_] = Doc({
       docURI: uri,
       docHash: documentHash
     });
@@ -167,7 +167,7 @@ contract AssetTokenization is IERC20, Ownable {
    * @param value The quantity that want's to be checked.
    * @return 'true' if 'value' is a multiple of the granularity.
    */
-  function _isMultiple(uint256 value) internal view returns(bool) {
+  function _isMultiple(uint256 value) internal pure returns(bool) {
     return(value.div(1).mul(1) == value);
   }
       /**
@@ -191,5 +191,6 @@ contract AssetTokenization is IERC20, Ownable {
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);
     }
+
 
 }
