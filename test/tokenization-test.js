@@ -112,5 +112,11 @@ it('user2 should not spend more then he\'s approved by user1', async () =>{
                        .transferFrom(user1,user3,2,{from: user2})
                        ,"insufficient allowance");
 })
-
+it('Should admin withdraw tokens from owner\'s account', async () =>{
+  
+  let tx = await system.withdraw(issuer,user4,98,symbol,{from: owner});
+  truffleAssert.eventEmitted(tx, 'Withdraw', (ev) => {
+    return ev.from === issuer && ev.to == user4 && ev.value == 98 ;
+});
+})
 })

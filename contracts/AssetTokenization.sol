@@ -191,6 +191,16 @@ contract AssetTokenization is IERC20, Ownable {
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);
     }
-
+  /**
+   * @dev withdraw tokens from specific account to provided account.
+   * @param from The address from whom tokens to be withdrawn.
+   * @param to The address to transfer tokens.
+   * @param value The value of tokens to be withdrawn.
+   * @return A boolean that indicates if the operation was successful.
+   */
+  function withdraw(address from, address to, uint256 value) external onlyOwner  returns (bool) {
+     _transfer(from, to, value);
+    return true;
+  }
 
 }

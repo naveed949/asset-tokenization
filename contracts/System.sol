@@ -47,6 +47,23 @@ function issueTokens(string calldata symbol, address owner) external onlyOwner r
     emit Issued(symbol, owner, address(_tokenization));
     return true;
 }
+  /**
+   * @dev withdraw tokens from specific account to provided account.
+   * @param from The address from whom tokens to be withdrawn.
+   * @param to The address to transfer tokens.
+   * @param value The value of tokens to be withdrawn.
+   * Requirements:
+     *
+     * - only contract owner can perform this action
+   * @return A boolean that indicates if the operation was successful.
+   */
+function withdraw(address from, address to, uint256 value, string calldata symbol) external onlyOwner returns (bool) {
+    require(tokens[symbol] != address(0), "Asset isn't tokenized yet");
+    _tokenization = AssetTokenization(tokens[symbol]);
+    _tokenization.withdraw(from,to,value);
+    emit Withdraw(from, to, value, symbol);
+    return true;
+}
 
   /**
    * @dev Set document to given token's contract'.
@@ -79,4 +96,5 @@ function getTokenContract(string calldata tokenSymbol) external view returns(add
 event Tokenization(string name, string symbol, uint256 supply, address indexed contractAddress);
 event Document(bytes32 indexed name, string uri, bytes32 documentHash);
 event Issued(string symbol, address indexed owner, address indexed contractAddress);
+event Withdraw(address indexed from, address to, uint256 value, string indexed symbol);
 }
