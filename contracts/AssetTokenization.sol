@@ -12,6 +12,7 @@ contract AssetTokenization is IERC20, Ownable {
   string internal _name;
   string internal _symbol;
   uint256 internal _totalSupply;
+  uint8 internal _decimals;
 
   // Mapping from tokenHolder to balance.
   mapping(address => uint256) internal _balances;
@@ -37,7 +38,9 @@ contract AssetTokenization is IERC20, Ownable {
   {
    _name = name;
    _symbol = symbol;
-   _totalSupply = _totalSupply.add(totalSupply);
+   _decimals = 18;
+
+   _totalSupply = totalSupply * (uint256(10) ** _decimals);
   }
     /**
    * @dev Get the name of the token, e.g., "MyToken".
@@ -53,6 +56,14 @@ contract AssetTokenization is IERC20, Ownable {
   function symbol() external view returns(string memory) {
     return _symbol;
   }
+
+ /**
+   * @dev Get the decimals
+   * @return decimals of the token.
+   */
+  function decimals() external view returns (uint8) {
+        return _decimals;
+    }
 
     /**
    * @dev Get the total number of issued tokens.

@@ -1,6 +1,7 @@
 const Tokenization = artifacts.require('AssetTokenization')
 const System = artifacts.require('System')
-const truffleAssert = require('truffle-assertions')
+const truffleAssert = require('truffle-assertions');
+const BN = require('bn.js');
 
 
 
@@ -51,15 +52,18 @@ contract('Tokenization', accounts => {
   });
   })
   it('Should Asset\'s Tokenization contract configured', async () => {
+    let decimals = "1000000000000000000"
     tokenization = await Tokenization.at(tokenization2);
     let _name = await tokenization.name({from: issuer});
     let _sybmol = await tokenization.symbol({from: issuer});
     let _supply = await tokenization.totalSupply({from: issuer});
     let _balance = await tokenization.balanceOf(issuer);
+    let _decimals = await tokenization.decimals();
     assert.equal(_name.toString(),name)
     assert.equal(_sybmol.toString(),symbol)
-    assert.equal(_supply.toNumber(),supply)
-    assert.equal(_balance.toNumber(),supply)
+    assert.equal(web3.utils.fromWei(_supply),supply)
+    assert.equal(web3.utils.fromWei(_balance),supply)
+    assert.equal(_decimals.toNumber(),18)
   })
 
 it('Fetch Document from Asset-tokenization contract', async () => {
